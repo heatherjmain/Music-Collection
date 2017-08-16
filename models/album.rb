@@ -39,6 +39,15 @@ class Album
     return album
   end
 
+  def find_album()
+    sql = "SELECT title FROM albums WHERE ID = $1;"
+    result_array = SqlRunner.run(sql, [@id])
+
+    title_hash = result_array[0]
+    title_object = Album.new(title_hash)
+    return title_object.title
+  end
+
 
   def artist()
     sql = "

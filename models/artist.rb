@@ -31,9 +31,19 @@ class Artist
   end
 
 
+  def find_artist()
+    sql = "SELECT name FROM artists WHERE id = $1;"
+    result_array = SqlRunner.run(sql, [@id])
+
+    name_hash = result_array[0]
+    name_object = Artist.new(name_hash)
+    return name_object.name
+  end
+
+
   def albums()
     sql = "
-      SELECT * FROM albums
+      SELECT title FROM albums
       WHERE artist_id = $1;"
     album_hash = SqlRunner.run(sql, [@id])
 
