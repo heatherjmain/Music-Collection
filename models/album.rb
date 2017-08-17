@@ -14,6 +14,7 @@ class Album
   end
 
   def save()
+    #This is just a string and the words do not correlate to anything else
     sql = "
       INSERT INTO albums (
         artist_id,
@@ -26,7 +27,7 @@ class Album
 
     values = [@artist_id, @title, @genre]
     returned_data = SqlRunner.run(sql, values)
-    @id = returned_data[0]["id"].to_i()
+    @id = returned_data[0]["id"].to_i() #=> [0] is needed as SqlRunner always returns an array of hashes as unable to .to_i on an array.  We just ask for the id and then convert this to an integer.
   end
 
 

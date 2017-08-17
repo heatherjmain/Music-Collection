@@ -16,7 +16,7 @@ class Artist
       RETURNING id;"
 
     values = [@name]
-    returned_array = SqlRunner.run(sql, values)
+    returned_array = SqlRunner.run(sql, values) # =>This is a class method
     @id = returned_array[0]["id"].to_i()
   end
 
@@ -47,9 +47,11 @@ class Artist
       WHERE artist_id = $1;"
     album_hash = SqlRunner.run(sql, [@id])
 
-    albums = album_hash.map do |album_hash|
-      Album.new(album_hash)
-    end
+    # This returns the hash of albums
+    # albums = album_hash.map {|album_hash| Album.new(album_hash)}
+
+    # This returns an array of album titles
+    albums = album_hash.map { |album_hash| album_hash["title"] }
     return albums
   end
 
